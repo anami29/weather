@@ -94,7 +94,15 @@ function displayResults(weather) {
   document.querySelector(
     ".location .city"
   ).innerText = `${weather.name}, ${weather.sys.country}`;
-  document.querySelector(".location .date").innerText = dateBuilder(new Date());
+  // Convert UTC time to city's local time
+  // Current UTC time (in ms) + city timezone offset
+  let utc = Date.now() + new Date().getTimezoneOffset() * 60000;
+  let localTime = new Date(utc + weather.timezone * 1000);
+
+  document.querySelector(".location .date").innerText = dateBuilder(localTime);
+
+  document.querySelector(".location .date").innerText = dateBuilder(localTime);
+
   document.querySelector(".current .temp").innerHTML = `${Math.round(
     weather.main.temp
   )}<span>°${isCelsius ? "C" : "F"}</span>`;
@@ -129,39 +137,50 @@ function displayResults(weather) {
       document.getElementById("aqi").innerText = data.list[0].main.aqi;
     });
 
+  // Reset theme classes
+  // Reset only weather-related classes
+  document.body.classList.remove(
+    "sunny",
+    "rainy",
+    "heavyrainy",
+    "snowy",
+    "cloudy",
+    "hazy",
+    "nightmode"
+  );
   app.className = "app-wrap";
   clearWeatherAnimations();
 
   if (condition.includes("snow")) {
-    app.classList.add("snowy");
+    document.body.classList.add("snowy");
     createSnowflakes(40);
   } else if (condition.includes("rain")) {
     if (weather.rain && weather.rain["1h"] > 5) {
-      app.classList.add("heavyrainy");
+      document.body.classList.add("heavyrainy");
       createRaindrops(120);
     } else {
-      app.classList.add("rainy");
+      document.body.classList.add("rainy");
       createRaindrops(60);
     }
   } else if (condition.includes("cloud")) {
-    app.classList.add("cloudy");
+    document.body.classList.add("cloudy");
     createClouds(8);
   } else if (condition.includes("clear")) {
     let hour = new Date().getHours();
     if (hour >= 19 || hour <= 5) {
-      app.classList.add("nightmode");
+      document.body.classList.add("nightmode");
       createNightSky(50);
     } else {
-      app.classList.add("sunny");
+      document.body.classList.add("sunny");
     }
   } else if (
     condition.includes("haze") ||
     condition.includes("mist") ||
     condition.includes("fog")
   ) {
-    app.classList.add("hazy");
+    document.body.classList.add("hazy");
   } else {
-    app.classList.add("nightmode");
+    document.body.classList.add("nightmode");
     createNightSky(30);
   }
 }
