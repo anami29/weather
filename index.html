@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-wrap">
+      <header>
+        <div class="search-container">
+          <input
+            type="text"
+            autocomplete="off"
+            class="search-box"
+            placeholder="Search for a city..."
+          />
+          <ul id="suggestions"></ul>
+        </div>
+        <div class="controls">
+          <button id="unit-toggle">°C / °F</button>
+          <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="location">
+          <div class="city">Mumbai, IN</div>
+          <div class="date">Loading...</div>
+        </section>
+
+        <div class="current">
+          <div class="icon"><i class="fas fa-sun"></i></div>
+          <div class="temp">--<span>°C</span></div>
+          <div class="weather">---</div>
+          <div class="hi-low">--° / --°</div>
+        </div>
+
+        <section class="extra-info">
+          <div class="info-box">
+            💧 Humidity: <span id="humidity">--%</span>
+          </div>
+          <div class="info-box">
+            🌧 Precipitation: <span id="precip">-- mm</span>
+          </div>
+          <div class="info-box">🌫 AQI: <span id="aqi">--</span></div>
+        </section>
+      </main>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

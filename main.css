@@ -1,0 +1,315 @@
+/* General Layout */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #e0e0e0; /* neutral background */
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-wrap {
+  background: linear-gradient(to top, #3498db, #2980b9); /* default */
+  padding: 20px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  flex: 1;
+  position: relative;
+}
+
+.search-box {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+/* Suggestions dropdown */
+#suggestions {
+  list-style: none;
+  margin: 5px 0 0;
+  padding: 0;
+  background: white;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  color: black;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#suggestions li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#suggestions li:hover {
+  background: #f1f1f1;
+}
+
+.controls {
+  display: flex;
+  margin-left: 10px;
+}
+
+.controls button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.controls button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.location .city {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.location .date {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.current .temp {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.current .weather {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.current .hi-low {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.extra-info {
+  margin-top: 20px;
+}
+
+.info-box {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Clouds ☁️ */
+.cloud {
+  position: absolute;
+  background: #ecf0f1;
+  border-radius: 50%;
+  animation: floatClouds 20s linear infinite;
+}
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: #ecf0f1;
+  border-radius: 50%;
+}
+.cloud::before {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: -40px;
+}
+.cloud::after {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 40px;
+}
+@keyframes floatClouds {
+  from {
+    left: -200px;
+  }
+  to {
+    left: 120%;
+  }
+}
+
+/* Rain 🌧️ */
+.raindrop {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: #3498db;
+  animation: fall 1s linear infinite;
+}
+.app-wrap.heavyrainy .raindrop {
+  height: 20px;
+  background: #2980b9;
+  animation-duration: 0.6s;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Snow ❄️ */
+.snowflake {
+  position: absolute;
+  color: #fff;
+  font-size: 18px;
+  animation: fallSnow 10s linear infinite;
+}
+@keyframes fallSnow {
+  from {
+    transform: translateY(-10px) rotate(0);
+  }
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* Stars ✨ */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite alternate;
+}
+@keyframes twinkle {
+  from {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Moon 🌙 */
+.moon {
+  position: absolute;
+  top: 80px;
+  right: 120px;
+  width: 80px;
+  height: 80px;
+  background: #f1c40f;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #f39c12;
+}
+.moon::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background: #0a0a23;
+}
+
+/* ----- Weather backgrounds on card (.app-wrap) ----- */
+.app-wrap.sunny {
+  background: linear-gradient(to top, #87ceeb, #fbc531);
+}
+
+.app-wrap.rainy {
+  background: linear-gradient(to top, #2c3e50, #34495e);
+}
+
+.app-wrap.heavyrainy {
+  background: linear-gradient(to top, #1e272e, #2f3640);
+}
+
+.app-wrap.snowy {
+  background: linear-gradient(to top, #74b9ff, #dfe6e9);
+}
+
+.app-wrap.cloudy {
+  background: linear-gradient(to top, #95a5a6, #7f8c8d);
+}
+
+.app-wrap.hazy {
+  background: linear-gradient(to top, #bdc3c7, #2c3e50);
+}
+
+.app-wrap.nightmode {
+  background: linear-gradient(to top, #0a0a23, #1e1e2f);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .current .temp {
+    font-size: 60px;
+  }
+  .current .weather {
+    font-size: 22px;
+  }
+  header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  header input {
+    margin-bottom: 10px;
+  }
+}
+
+/* 🌞 Light mode */
+/* 🌙 Dark mode */
+
+/* Dark mode background */
+body.darkmode {
+  background: linear-gradient(to bottom, #232526, #414345);
+  transition: background 0.6s ease;
+}
+
+/* Dark mode card */
+.app-wrap.darkmode {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
